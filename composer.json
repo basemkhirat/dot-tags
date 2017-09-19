@@ -1,0 +1,28 @@
+{
+
+    "name": "dot/tags",
+
+    "description": "The tatgs module of dot/cms",
+
+    "keywords": ["dotcms", "framework", "laravel", "cms", "modules", "plugins"],
+
+    "license": "MIT",
+
+    "type": "package",
+
+    "require": {
+        "dot/platform": "*"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "Dot\\Tags\\": "src"
+        }
+    },
+
+    "config": {
+        "preferred-install": "dist"
+    },
+
+    "minimum-stability" : "dev"
+}
