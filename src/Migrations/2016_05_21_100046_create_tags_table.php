@@ -1,8 +1,5 @@
 <?php
 
-namespace Dot\Tags\Migrations;
-
-use Schema;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateTagsTable extends Migration
