@@ -2,12 +2,11 @@
 
 namespace Dot\Tags;
 
-use Plugin;
-use Navigation;
 use Gate;
+use Navigation;
 use URL;
 
-class TagsPlugin extends Plugin
+class Plugin extends \Dot\Platform\Plugin
 {
 
     public $permissions = [

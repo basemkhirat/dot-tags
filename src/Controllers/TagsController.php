@@ -2,12 +2,12 @@
 
 namespace Dot\Tags\Controllers;
 
+use Action;
+use Dot\Platform\Controller;
+use Dot\Tags\Models\Tag;
+use Redirect;
 use Request;
 use View;
-use Action;
-use Redirect;
-use Dot\Tags\Models\Tag;
-use Dot\Controller;
 
 class TagsController extends Controller
 {

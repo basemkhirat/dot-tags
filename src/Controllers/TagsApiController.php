@@ -2,14 +2,14 @@
 
 namespace Dot\Tags\Controllers;
 
-use Illuminate\Http\Request;
+use Dot\Platform\APIController;
 use Dot\Tags\Models\Tag;
-use Dot\ApiController;
+use Illuminate\Http\Request;
 
 /**
  * Class TagsApiController
  */
-class TagsApiController extends ApiController
+class TagsApiController extends APIController
 {
 
     /**

@@ -2,7 +2,7 @@
 
 namespace Dot\Tags\Models;
 
-use Dot\Model;
+use Dot\Platform\Model;
 
 /**
  * Class Tag
