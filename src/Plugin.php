@@ -13,20 +13,6 @@ class Plugin extends \Dot\Platform\Plugin
         "manage"
     ];
 
-    /**
-     * @return array
-     */
-    function info()
-    {
-
-        return [
-            "name" => "tags",
-            "version" => "1.0",
-        ];
-
-    }
-
-
     function boot()
     {
 
