@@ -21,6 +21,7 @@ class Plugin extends \Dot\Platform\Plugin
             if (Gate::allows("tags.manage")) {
                 $menu->item('tags', trans("tags::tags.tags"), URL::to(ADMIN . '/tags'))->icon("fa-tags")->order(3);
             }
+
         });
 
         include __DIR__ . "/routes.php";
