@@ -8,6 +8,7 @@ use Dot\Tags\Models\Tag;
 use Redirect;
 use Request;
 use View;
+use Auth;
 
 class TagsController extends Controller
 {

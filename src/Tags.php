@@ -6,25 +6,23 @@ use Gate;
 use Navigation;
 use URL;
 
-class Plugin extends \Dot\Platform\Plugin
+class Tags extends \Dot\Platform\Plugin
 {
 
-    public $permissions = [
+    protected $permissions = [
         "manage"
     ];
 
     function boot()
     {
 
+        parent::boot();
+
         Navigation::menu("sidebar", function ($menu) {
 
             if (Gate::allows("tags.manage")) {
                 $menu->item('tags', trans("tags::tags.tags"), URL::to(ADMIN . '/tags'))->icon("fa-tags")->order(3);
             }
-
         });
-
-        include __DIR__ . "/routes.php";
-
     }
 }
