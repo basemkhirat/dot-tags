@@ -6,22 +6,22 @@
         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
             <h2>
                 <i class="fa fa-tags"></i>
-                <?php echo trans("tags::tags.tags") ?>
+                {{ trans("tags::tags.tags") }}
             </h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="<?php echo route("admin"); ?>"><?php echo trans("admin::common.admin") ?></a>
+                    <a href="{{ route("admin") }}">{{ trans("admin::common.admin") }}</a>
                 </li>
                 <li>
-                    <a href="<?php echo route("admin.tags.show"); ?>"><?php echo trans("tags::tags.tags") ?>
-                        (<?php echo $tags->total() ?>)</a>
+                    <a href="{{ route("admin.tags.show") }}">{{ trans("tags::tags.tags") }}
+                        ({{ $tags->total() }})</a>
                 </li>
             </ol>
         </div>
         <div class="col-lg-8 col-md-6 col-sm-6 col-xs-12 text-right">
-            <a href="<?php echo route("admin.tags.create"); ?>" class="btn btn-primary btn-labeled btn-main">
+            <a href="{{ route("admin.tags.create") }}" class="btn btn-primary btn-labeled btn-main">
                 <span class="btn-label icon fa fa-plus"></span>
-                <?php echo trans("tags::tags.add_new") ?></a>
+                {{ trans("tags::tags.add_new") }}</a>
         </div>
     </div>
 
@@ -30,7 +30,7 @@
         <div id="content-wrapper">
             @include("admin::partials.messages")
             <form action="" method="get" class="filter-form">
-                <input type="hidden" name="per_page" value="<?php echo Request::get('per_page') ?>"/>
+                <input type="hidden" name="per_page" value="{{ Request::get('per_page') }}"/>
 
                 <div class="row">
                     <div class="col-lg-4 col-md-4">
@@ -38,21 +38,21 @@
                             <select name="sort" class="form-control chosen-select chosen-rtl">
                                 <option
                                     value="name"
-                                    <?php if ($sort == "name") { ?> selected='selected' <?php } ?>><?php echo ucfirst(trans("tags::tags.attributes.name")); ?></option>
+                                    @if ($sort == "name") selected='selected' @endif>{{ ucfirst(trans("tags::tags.attributes.name")) }}</option>
                                 <option
                                     value="created_at"
-                                    <?php if ($sort == "date") { ?> selected='selected' <?php } ?>><?php echo ucfirst(trans("tags::tags.attributes.date")); ?></option>
+                                    @if ($sort == "date") selected='selected' @endif>{{ ucfirst(trans("tags::tags.attributes.date")) }}</option>
                             </select>
                             <select name="order" class="form-control chosen-select chosen-rtl">
                                 <option
                                     value="DESC"
-                                    <?php if (Request::get("order") == "DESC") { ?> selected='selected' <?php } ?>><?php echo trans("tags::tags.desc"); ?></option>
+                                    @if (Request::get("order") == "DESC") selected='selected' @endif>{{ trans("tags::tags.desc") }}</option>
                                 <option
                                     value="ASC"
-                                    <?php if (Request::get("order") == "ASC") { ?> selected='selected' <?php } ?>><?php echo trans("tags::tags.asc"); ?></option>
+                                    @if (Request::get("order") == "ASC") selected='selected' @endif>{{ trans("tags::tags.asc") }}</option>
                             </select>
                             <button type="submit"
-                                    class="btn btn-primary"><?php echo trans("tags::tags.order"); ?></button>
+                                    class="btn btn-primary">{{ trans("tags::tags.order") }}</button>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4">
@@ -64,9 +64,9 @@
 
                             <div class="input-group">
                                 <div class="autocomplete_area">
-                                    <input type="text" name="q" value="<?php echo Request::get("q"); ?>"
+                                    <input type="text" name="q" value="{{ Request::get("q") }}"
                                            autocomplete="off"
-                                           placeholder="<?php echo trans("tags::tags.search_tags") ?> ..."
+                                           placeholder="{{ trans("tags::tags.search_tags") }} ..."
                                            class="form-control linked-text">
 
                                     <div class="autocomplete_result">
@@ -87,39 +87,39 @@
                 </div>
             </form>
             <form action="" method="post" class="action_form">
-                <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"/>
+                <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>
                             <i class="fa fa-tags"></i>
-                            <?php echo trans("tags::tags.tags") ?>
+                            {{ trans("tags::tags.tags") }}
                         </h5>
                     </div>
                     <div class="ibox-content">
-                        <?php if (count($tags)) { ?>
+                        @if (count($tags))
                         <div class="row">
 
                             <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 action-box">
                                 <select name="action" class="form-control pull-left">
                                     <option value="-1"
-                                            selected="selected"><?php echo trans("tags::tags.bulk_actions"); ?></option>
-                                    <option value="delete"><?php echo trans("tags::tags.delete"); ?></option>
+                                            selected="selected">{{ trans("tags::tags.bulk_actions") }}</option>
+                                    <option value="delete">{{ trans("tags::tags.delete") }}</option>
                                 </select>
                                 <button type="submit"
-                                        class="btn btn-primary pull-right"><?php echo trans("tags::tags.apply"); ?></button>
+                                        class="btn btn-primary pull-right">{{ trans("tags::tags.apply") }}</button>
                             </div>
 
                             <div class="col-lg-6 col-md-4 hidden-sm hidden-xs"></div>
 
                             <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
                                 <select class="form-control per_page_filter">
-                                    <option value="" selected="selected">-- <?php echo trans("tags::tags.per_page") ?>--
+                                    <option value="" selected="selected">-- {{ trans("tags::tags.per_page") }}--
                                     </option>
-                                    <?php foreach (array(10, 20, 30, 40, 60, 80, 100, 150) as $num) { ?>
+                                    @foreach (array(10, 20, 30, 40, 60, 80, 100, 150) as $num)
                                     <option
-                                        value="<?php echo $num; ?>"
-                                        <?php if ($num == $per_page) { ?> selected="selected" <?php } ?>><?php echo $num; ?></option>
-                                    <?php } ?>
+                                        value="{{ $num }}"
+                                        @if ($num == $per_page) selected="selected" @endif>{{ $num }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -130,64 +130,64 @@
                                     <th style="width:35px">
                                         <input type="checkbox" class="i-checks check_all" name="ids[]"/>
                                     </th>
-                                    <th><?php echo trans("tags::tags.attributes.name"); ?></th>
-                                    <th><?php echo trans("tags::tags.attributes.date"); ?></th>
-                                    <th><?php echo trans("tags::tags.actions"); ?></th>
+                                    <th>{{ trans("tags::tags.attributes.name") }}</th>
+                                    <th>{{ trans("tags::tags.attributes.date") }}</th>
+                                    <th>{{ trans("tags::tags.actions") }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php foreach ($tags as $tag) { ?>
+                                @foreach ($tags as $tag)
                                 <tr>
                                     <td>
                                         <input type="checkbox" class="i-checks" name="id[]"
-                                               value="<?php echo $tag->id; ?>"/>
+                                               value="{{ $tag->id }}"/>
                                     </td>
 
                                     <td>
                                         <a data-toggle="tooltip" data-placement="bottom" class="text-navy"
-                                           title="<?php echo trans("tags::tags.edit"); ?>"
-                                           href="<?php echo route("admin.tags.edit", array("id" => $tag->id)); ?>">
-                                            <strong><?php echo $tag->name; ?></strong>
+                                           title="{{ trans("tags::tags.edit") }}"
+                                           href="{{ route("admin.tags.edit", array("id" => $tag->id)) }}">
+                                            <strong>{{ $tag->name }}</strong>
                                         </a>
                                     </td>
 
                                     <td>
-                                        <small><?php echo $tag->created_at->render(); ?></small>
+                                        <small>{{ $tag->created_at->render() }}</small>
                                     </td>
 
                                     <td class="center">
                                         <a data-toggle="tooltip" data-placement="bottom"
-                                           title="<?php echo trans("tags::tags.edit"); ?>"
-                                           href="<?php echo route("admin.tags.edit", array("id" => $tag->id)); ?>">
+                                           title="{{ trans("tags::tags.edit") }}"
+                                           href="{{ route("admin.tags.edit", array("id" => $tag->id)) }}">
                                             <i class="fa fa-pencil text-navy"></i>
                                         </a>
-                                        <a <?php /* data-toggle="tooltip" data-placement="bottom" */ ?>
-                                           title="<?php echo trans("tags::tags.delete"); ?>" class="ask delete_tag"
-                                           data-tag-id="<?php echo $tag->id; ?>"
-                                           message="<?php echo trans("tags::tags.sure_delete") ?>"
-                                           href="<?php echo URL::route("admin.tags.delete", array("id" => $tag->id)) ?>">
+                                        <a 
+                                           title="{{ trans("tags::tags.delete") }}" class="ask delete_tag"
+                                           data-tag-id="{{ $tag->id }}"
+                                           message="{{ trans("tags::tags.sure_delete") }}"
+                                           href="{{ URL::route("admin.tags.delete", array("id" => $tag->id)) }}">
                                             <i class="fa fa-times text-navy"></i>
                                         </a>
                                     </td>
                                 </tr>
-                                <?php } ?>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
                         <div class="row">
                             <div class="col-lg-12 text-center">
-                                <?php echo trans("tags::tags.page"); ?>
-                                <?php echo $tags->currentPage() ?>
-                                <?php echo trans("tags::tags.of") ?>
-                                <?php echo $tags->lastPage() ?>
+                                {{ trans("tags::tags.page") }}
+                                {{ $tags->currentPage() }}
+                                {{ trans("tags::tags.of") }}
+                                {{ $tags->lastPage() }}
                             </div>
                             <div class="col-lg-12 text-center">
-                                <?php echo $tags->appends(Request::all())->render(); ?>
+                                {{ $tags->appends(Request::all())->render() }}
                             </div>
                         </div>
-                        <?php } else { ?>
-                    <?php echo trans("tags::tags.no_records"); ?>
-                <?php } ?>
+                        @else
+                            {{ trans("tags::tags.no_records") }}
+                        @endif
                     </div>
                 </div>
             </form>
