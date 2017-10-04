@@ -3,24 +3,31 @@
 namespace Dot\Tags\Controllers;
 
 use Action;
+use Auth;
 use Dot\Platform\Controller;
 use Dot\Tags\Models\Tag;
 use Redirect;
 use Request;
 use View;
-use Auth;
 
+/**
+ * Class TagsController
+ * @package Dot\Tags\Controllers
+ */
 class TagsController extends Controller
 {
 
+    /**
+     * View payload
+     * @var array
+     */
     protected $data = [];
 
-    function __construct()
-    {
-        parent::__construct();
-        $this->middleware("permission:tags.manage");
-    }
 
+    /**
+     * Show all tags
+     * @return mixed
+     */
     function index()
     {
 
@@ -50,6 +57,10 @@ class TagsController extends Controller
         return View::make("tags::show", $this->data);
     }
 
+    /**
+     * Create a new tag
+     * @return mixed
+     */
     public function create()
     {
 
@@ -59,7 +70,8 @@ class TagsController extends Controller
 
             $tag->name = Request::get("name");
 
-            // fire saving tag
+            // Fire saving action
+
             Action::fire("tag.saving", $tag);
 
             if (!$tag->validate()) {
@@ -68,7 +80,8 @@ class TagsController extends Controller
 
             $tag->save();
 
-            // fire saved action
+            // Fire saved action
+
             Action::fire("tag.saved", $tag);
 
             return Redirect::route("admin.tags.edit", array("id" => $tag->id))
@@ -80,15 +93,22 @@ class TagsController extends Controller
         return View::make("tags::edit", $this->data);
     }
 
+    /**
+     * Edit tag by id
+     * @param $id
+     * @return mixed
+     */
     public function edit($id)
     {
 
         $tag = Tag::findOrFail((int)$id);
+
         if (Request::isMethod("post")) {
 
             $tag->name = Request::get("name");
 
             // fire saving action
+
             Action::fire("tag.saving", $tag);
 
             if (!$tag->validate()) {
@@ -98,6 +118,7 @@ class TagsController extends Controller
             $tag->save();
 
             // fire saved action
+
             Action::fire("tag.saved", $tag);
 
             return Redirect::route("admin.tags.edit", array("id" => $id))->with("message", trans("tags::tags.events.updated"));
@@ -108,26 +129,38 @@ class TagsController extends Controller
         return View::make("tags::edit", $this->data);
     }
 
+    /**
+     * Delete tag by id
+     * @return mixed
+     */
     public function delete()
     {
         $ids = Request::get("id");
-        if (!is_array($ids)) {
-            $ids = array($ids);
-        }
+
+        $ids = is_array($ids) ? $ids : [$ids];
+
         foreach ($ids as $ID) {
+
             $tag = Tag::findOrFail((int)$ID);
 
-            // fire deleting action
+            // Fire deleting action
+
             Action::fire("tag.deleting", $tag);
 
             $tag->delete();
 
-            // fire deleted action
+            // Fire deleted action
+
             Action::fire("tag.deleted", $tag);
         }
+
         return Redirect::back()->with("message", trans("tags::tags.events.deleted"));
     }
 
+    /**
+     * Rest service to search tags
+     * @return string
+     */
     function search()
     {
 

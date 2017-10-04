@@ -2,7 +2,7 @@
 
 namespace Dot\Tags;
 
-use Gate;
+use Illuminate\Support\Facades\Auth;
 use Navigation;
 use URL;
 
@@ -20,7 +20,7 @@ class Tags extends \Dot\Platform\Plugin
 
         Navigation::menu("sidebar", function ($menu) {
 
-            if (Gate::allows("tags.manage")) {
+            if (Auth::user()->can("tags.manage")) {
                 $menu->item('tags', trans("tags::tags.tags"), URL::to(ADMIN . '/tags'))->icon("fa-tags")->order(3);
             }
         });

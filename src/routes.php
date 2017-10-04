@@ -5,7 +5,7 @@
  */
 Route::group(array(
     "prefix" => ADMIN,
-    "middleware" => ["web", "auth"],
+    "middleware" => ["web", "auth", "can:tags.manage"],
         ), function($route) {
         $route->group(array("prefix" => "tags"), function($route) {
             $route->any('/', array("as" => "admin.tags.show", "uses" => "Dot\Tags\Controllers\TagsController@index"));

@@ -6,13 +6,10 @@ use Dot\Platform\Model;
 
 /**
  * Class Tag
+ * @package Dot\Tags\Models
  */
 class Tag extends Model
 {
-    /**
-     * @var string
-     */
-    protected $module = "tags";
 
     /**
      * @var string
@@ -67,13 +64,13 @@ class Tag extends Model
     }
 
     /**
+     * Count setters
      * @param $value
      */
     function setCountAttribute($value)
     {
         $this->attributes["count"] = 0;
     }
-
 
     /**
      * Save multiple tag names
@@ -84,14 +81,22 @@ class Tag extends Model
     {
 
         $tag_ids = [];
+
         $names = array_unique($names);
+
         foreach ($names as $name) {
             $tag = self::select("id")->where("name", $name)->first();
+
             if (count($tag)) {
-                // tag exists
+
+                // Tag exists
+
                 $tag_ids[] = $tag->id;
+
             } else {
-                // create new tag
+
+                // Create new tag
+
                 $tag = new Tag();
                 $tag->name = $name;
                 if ($tag->validate()) {
@@ -99,11 +104,9 @@ class Tag extends Model
                     $tag_ids[] = $tag->id;
                 }
             }
-
         }
 
         return $tag_ids;
-
     }
 
 }
