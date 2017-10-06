@@ -3,17 +3,18 @@
 /*
  * WEB
  */
-Route::group(array(
+Route::group([
     "prefix" => ADMIN,
-    "middleware" => ["web", "auth", "can:tags.manage"],
-        ), function($route) {
-        $route->group(array("prefix" => "tags"), function($route) {
-            $route->any('/', array("as" => "admin.tags.show", "uses" => "Dot\Tags\Controllers\TagsController@index"));
-            $route->any('/create', array("as" => "admin.tags.create", "uses" => "Dot\Tags\Controllers\TagsController@create"));
-            $route->any('/{tag_id}/edit', array("as" => "admin.tags.edit", "uses" => "Dot\Tags\Controllers\TagsController@edit"));
-            $route->any('/delete', array("as" => "admin.tags.delete", "uses" => "Dot\Tags\Controllers\TagsController@delete"));
-            $route->any('/search', array("as" => "admin.tags.search", "uses" => "Dot\Tags\Controllers\TagsController@search"));
-        });
+    "middleware" => ["web", "auth:backend", "can:tags.manage"],
+    "namespace" => "Dot\\Tags\\Controllers"
+], function ($route) {
+    $route->group(["prefix" => "tags"], function ($route) {
+        $route->any('/', ["as" => "admin.tags.show", "uses" => "TagsController@index"]);
+        $route->any('/create', ["as" => "admin.tags.create", "uses" => "TagsController@create"]);
+        $route->any('/{tag_id}/edit', ["as" => "admin.tags.edit", "uses" => "TagsController@edit"]);
+        $route->any('/delete', ["as" => "admin.tags.delete", "uses" => "TagsController@delete"]);
+        $route->any('/search', ["as" => "admin.tags.search", "uses" => "TagsController@search"]);
+    });
 });
 
 
@@ -22,12 +23,13 @@ Route::group(array(
  */
 Route::group([
     "prefix" => API,
-    "middleware" => ["auth:api"]
+    "middleware" => ["auth:api"],
+    "namespace" => "Dot\\Tags\\Controllers"
 ], function ($route) {
-    $route->get("/tags/show", "Dot\Tags\Controllers\TagsApiController@show");
-    $route->post("/tags/create", "Dot\Tags\Controllers\TagsApiController@create");
-    $route->post("/tags/update", "Dot\Tags\Controllers\TagsApiController@update");
-    $route->post("/tags/destroy", "Dot\Tags\Controllers\TagsApiController@destroy");
+    $route->get("/tags/show", "TagsApiController@show");
+    $route->post("/tags/create", "TagsApiController@create");
+    $route->post("/tags/update", "TagsApiController@update");
+    $route->post("/tags/destroy", "TagsApiController@destroy");
 });
 
 
