@@ -41,7 +41,7 @@ class TagsApiController extends APIController
 
         $query = Tag::orderBy($sort_by, $sort_direction);
 
-        if ($request->has("q")) {
+        if ($request->filled("q")) {
             $query->search($request->get("q"));
         }
 

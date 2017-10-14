@@ -32,7 +32,7 @@ class TagsController extends Controller
     {
 
         if (Request::isMethod("post")) {
-            if (Request::has("action")) {
+            if (Request::filled("action")) {
                 switch (Request::get("action")) {
                     case "delete":
                         return $this->delete();
@@ -40,13 +40,13 @@ class TagsController extends Controller
             }
         }
 
-        $this->data["sort"] = $sort = (Request::has("sort")) ? Request::get("sort") : "id";
-        $this->data["order"] = $order = (Request::has("order")) ? Request::get("order") : "DESC";
-        $this->data['per_page'] = (Request::has("per_page")) ? (int)Request::get("per_page") : 40;
+        $this->data["sort"] = $sort = (Request::filled("sort")) ? Request::get("sort") : "id";
+        $this->data["order"] = $order = (Request::filled("order")) ? Request::get("order") : "DESC";
+        $this->data['per_page'] = (Request::filled("per_page")) ? (int)Request::get("per_page") : 40;
 
         $query = Tag::orderBy($this->data["sort"], $this->data["order"]);
 
-        if (Request::has("q")) {
+        if (Request::filled("q")) {
             $query->search(Request::get("q"));
         }
 
