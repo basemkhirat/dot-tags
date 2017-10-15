@@ -53,26 +53,6 @@ class Tag extends Model
     ];
 
     /**
-     * @param $v
-     * @return mixed
-     */
-    function setValidation($v)
-    {
-        $v->setCustomMessages((array)trans('tags::validation'));
-        $v->setAttributeNames((array)trans("tags::tags.attributes"));
-        return $v;
-    }
-
-    /**
-     * Count setters
-     * @param $value
-     */
-    function setCountAttribute($value)
-    {
-        $this->attributes["count"] = 0;
-    }
-
-    /**
      * Save multiple tag names
      * @param array $names
      * @return array of tag ids
@@ -107,6 +87,26 @@ class Tag extends Model
         }
 
         return $tag_ids;
+    }
+
+    /**
+     * @param $v
+     * @return mixed
+     */
+    function setValidation($v)
+    {
+        $v->setCustomMessages((array)trans('tags::validation'));
+        $v->setAttributeNames((array)trans("tags::tags.attributes"));
+        return $v;
+    }
+
+    /**
+     * Count setters
+     * @param $value
+     */
+    function setCountAttribute($value)
+    {
+        $this->attributes["count"] = 0;
     }
 
 }

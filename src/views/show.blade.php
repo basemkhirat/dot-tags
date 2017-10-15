@@ -97,94 +97,95 @@
                     </div>
                     <div class="ibox-content">
                         @if (count($tags))
-                        <div class="row">
+                            <div class="row">
 
-                            <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 action-box">
-                                <select name="action" class="form-control pull-left">
-                                    <option value="-1"
-                                            selected="selected">{{ trans("tags::tags.bulk_actions") }}</option>
-                                    <option value="delete">{{ trans("tags::tags.delete") }}</option>
-                                </select>
-                                <button type="submit"
-                                        class="btn btn-primary pull-right">{{ trans("tags::tags.apply") }}</button>
+                                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 action-box">
+                                    <select name="action" class="form-control pull-left">
+                                        <option value="-1"
+                                                selected="selected">{{ trans("tags::tags.bulk_actions") }}</option>
+                                        <option value="delete">{{ trans("tags::tags.delete") }}</option>
+                                    </select>
+                                    <button type="submit"
+                                            class="btn btn-primary pull-right">{{ trans("tags::tags.apply") }}</button>
+                                </div>
+
+                                <div class="col-lg-6 col-md-4 hidden-sm hidden-xs"></div>
+
+                                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+                                    <select class="form-control per_page_filter">
+                                        <option value="" selected="selected">-- {{ trans("tags::tags.per_page") }}--
+                                        </option>
+                                        @foreach (array(10, 20, 30, 40, 60, 80, 100, 150) as $num)
+                                            <option
+                                                value="{{ $num }}"
+                                                @if ($num == $per_page) selected="selected" @endif>{{ $num }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
+                            <div class="table-responsive">
+                                <table cellpadding="0" cellspacing="0" border="0"
+                                       class="table table-striped table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th style="width:35px">
+                                            <input type="checkbox" class="i-checks check_all" name="ids[]"/>
+                                        </th>
+                                        <th>{{ trans("tags::tags.attributes.name") }}</th>
+                                        <th>{{ trans("tags::tags.attributes.date") }}</th>
+                                        <th>{{ trans("tags::tags.actions") }}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach ($tags as $tag)
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" class="i-checks" name="id[]"
+                                                       value="{{ $tag->id }}"/>
+                                            </td>
 
-                            <div class="col-lg-6 col-md-4 hidden-sm hidden-xs"></div>
+                                            <td>
+                                                <a data-toggle="tooltip" data-placement="bottom" class="text-navy"
+                                                   title="{{ trans("tags::tags.edit") }}"
+                                                   href="{{ route("admin.tags.edit", array("id" => $tag->id)) }}">
+                                                    <strong>{{ $tag->name }}</strong>
+                                                </a>
+                                            </td>
 
-                            <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
-                                <select class="form-control per_page_filter">
-                                    <option value="" selected="selected">-- {{ trans("tags::tags.per_page") }}--
-                                    </option>
-                                    @foreach (array(10, 20, 30, 40, 60, 80, 100, 150) as $num)
-                                    <option
-                                        value="{{ $num }}"
-                                        @if ($num == $per_page) selected="selected" @endif>{{ $num }}</option>
+                                            <td>
+                                                <small>{{ $tag->created_at->render() }}</small>
+                                            </td>
+
+                                            <td class="center">
+                                                <a data-toggle="tooltip" data-placement="bottom"
+                                                   title="{{ trans("tags::tags.edit") }}"
+                                                   href="{{ route("admin.tags.edit", array("id" => $tag->id)) }}">
+                                                    <i class="fa fa-pencil text-navy"></i>
+                                                </a>
+                                                <a
+                                                    title="{{ trans("tags::tags.delete") }}" class="ask delete_tag"
+                                                    data-tag-id="{{ $tag->id }}"
+                                                    message="{{ trans("tags::tags.sure_delete") }}"
+                                                    href="{{ URL::route("admin.tags.delete", array("id" => $tag->id)) }}">
+                                                    <i class="fa fa-times text-navy"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
                                     @endforeach
-                                </select>
+                                    </tbody>
+                                </table>
                             </div>
-                        </div>
-                        <div class="table-responsive">
-                            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-hover">
-                                <thead>
-                                <tr>
-                                    <th style="width:35px">
-                                        <input type="checkbox" class="i-checks check_all" name="ids[]"/>
-                                    </th>
-                                    <th>{{ trans("tags::tags.attributes.name") }}</th>
-                                    <th>{{ trans("tags::tags.attributes.date") }}</th>
-                                    <th>{{ trans("tags::tags.actions") }}</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach ($tags as $tag)
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" class="i-checks" name="id[]"
-                                               value="{{ $tag->id }}"/>
-                                    </td>
-
-                                    <td>
-                                        <a data-toggle="tooltip" data-placement="bottom" class="text-navy"
-                                           title="{{ trans("tags::tags.edit") }}"
-                                           href="{{ route("admin.tags.edit", array("id" => $tag->id)) }}">
-                                            <strong>{{ $tag->name }}</strong>
-                                        </a>
-                                    </td>
-
-                                    <td>
-                                        <small>{{ $tag->created_at->render() }}</small>
-                                    </td>
-
-                                    <td class="center">
-                                        <a data-toggle="tooltip" data-placement="bottom"
-                                           title="{{ trans("tags::tags.edit") }}"
-                                           href="{{ route("admin.tags.edit", array("id" => $tag->id)) }}">
-                                            <i class="fa fa-pencil text-navy"></i>
-                                        </a>
-                                        <a 
-                                           title="{{ trans("tags::tags.delete") }}" class="ask delete_tag"
-                                           data-tag-id="{{ $tag->id }}"
-                                           message="{{ trans("tags::tags.sure_delete") }}"
-                                           href="{{ URL::route("admin.tags.delete", array("id" => $tag->id)) }}">
-                                            <i class="fa fa-times text-navy"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12 text-center">
-                                {{ trans("tags::tags.page") }}
-                                {{ $tags->currentPage() }}
-                                {{ trans("tags::tags.of") }}
-                                {{ $tags->lastPage() }}
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    {{ trans("tags::tags.page") }}
+                                    {{ $tags->currentPage() }}
+                                    {{ trans("tags::tags.of") }}
+                                    {{ $tags->lastPage() }}
+                                </div>
+                                <div class="col-lg-12 text-center">
+                                    {{ $tags->appends(Request::all())->render() }}
+                                </div>
                             </div>
-                            <div class="col-lg-12 text-center">
-                                {{ $tags->appends(Request::all())->render() }}
-                            </div>
-                        </div>
                         @else
                             {{ trans("tags::tags.no_records") }}
                         @endif

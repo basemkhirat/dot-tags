@@ -58,6 +58,34 @@ class TagsController extends Controller
     }
 
     /**
+     * Delete tag by id
+     * @return mixed
+     */
+    public function delete()
+    {
+        $ids = Request::get("id");
+
+        $ids = is_array($ids) ? $ids : [$ids];
+
+        foreach ($ids as $ID) {
+
+            $tag = Tag::findOrFail((int)$ID);
+
+            // Fire deleting action
+
+            Action::fire("tag.deleting", $tag);
+
+            $tag->delete();
+
+            // Fire deleted action
+
+            Action::fire("tag.deleted", $tag);
+        }
+
+        return Redirect::back()->with("message", trans("tags::tags.events.deleted"));
+    }
+
+    /**
      * Create a new tag
      * @return mixed
      */
@@ -127,34 +155,6 @@ class TagsController extends Controller
         $this->data["tag"] = $tag;
 
         return View::make("tags::edit", $this->data);
-    }
-
-    /**
-     * Delete tag by id
-     * @return mixed
-     */
-    public function delete()
-    {
-        $ids = Request::get("id");
-
-        $ids = is_array($ids) ? $ids : [$ids];
-
-        foreach ($ids as $ID) {
-
-            $tag = Tag::findOrFail((int)$ID);
-
-            // Fire deleting action
-
-            Action::fire("tag.deleting", $tag);
-
-            $tag->delete();
-
-            // Fire deleted action
-
-            Action::fire("tag.deleted", $tag);
-        }
-
-        return Redirect::back()->with("message", trans("tags::tags.events.deleted"));
     }
 
     /**
