@@ -10,21 +10,21 @@ use Redirect;
 use Request;
 use View;
 
-/**
+/*
  * Class TagsController
  * @package Dot\Tags\Controllers
  */
 class TagsController extends Controller
 {
 
-    /**
+    /*
      * View payload
      * @var array
      */
     protected $data = [];
 
 
-    /**
+    /*
      * Show all tags
      * @return mixed
      */
@@ -57,7 +57,7 @@ class TagsController extends Controller
         return View::make("tags::show", $this->data);
     }
 
-    /**
+    /*
      * Delete tag by id
      * @return mixed
      */
@@ -85,7 +85,7 @@ class TagsController extends Controller
         return Redirect::back()->with("message", trans("tags::tags.events.deleted"));
     }
 
-    /**
+    /*
      * Create a new tag
      * @return mixed
      */
@@ -121,7 +121,7 @@ class TagsController extends Controller
         return View::make("tags::edit", $this->data);
     }
 
-    /**
+    /*
      * Edit tag by id
      * @param $id
      * @return mixed
@@ -157,7 +157,7 @@ class TagsController extends Controller
         return View::make("tags::edit", $this->data);
     }
 
-    /**
+    /*
      * Rest service to search tags
      * @return string
      */
