@@ -78,7 +78,8 @@ class Tag extends Model
                 // Create new tag
 
                 $tag = new Tag();
-                $tag->name = $name;
+                $tag->name = self::cleanTrim($name);
+
                 if ($tag->validate()) {
                     $tag->save();
                     $tag_ids[] = $tag->id;
@@ -109,4 +110,20 @@ class Tag extends Model
         $this->attributes["count"] = 0;
     }
 
+
+    /**
+     * Clean string
+     *
+     * @param $string
+     *
+     * @return mixed|string
+     */
+    public static function cleanTrim($string)
+    {
+        $string = str_replace("\r\n", '', $string);
+
+        $string = trim($string);
+
+        return $string;
+    }
 }
