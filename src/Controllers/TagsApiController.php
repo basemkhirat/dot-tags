@@ -6,13 +6,13 @@ use Dot\Platform\APIController;
 use Dot\Tags\Models\Tag;
 use Illuminate\Http\Request;
 
-/*
+/**
  * Class TagsApiController
  */
 class TagsApiController extends APIController
 {
 
-    /*
+    /**
      * TagsApiController constructor.
      */
     function __construct(Request $request)
@@ -21,7 +21,7 @@ class TagsApiController extends APIController
         $this->middleware("permission:tags.manage");
     }
 
-    /*
+    /**
      * List tags
      * @param int $id (optional) The object identifier.
      * @param string $q (optional) The search query string.
@@ -56,7 +56,7 @@ class TagsApiController extends APIController
     }
 
 
-    /*
+    /**
      * Create a new tag
      * @param string $name (required) The tag name.
      * @return \Illuminate\Http\JsonResponse
@@ -83,7 +83,7 @@ class TagsApiController extends APIController
 
     }
 
-    /*
+    /**
      * Update tag by id
      * @param int $id (required) The user id.
      * @param string $name (required) The tag name.
@@ -111,7 +111,7 @@ class TagsApiController extends APIController
 
     }
 
-    /*
+    /**
      * Delete tag by id
      * @param int $id (required) The tag id.
      * @return \Illuminate\Http\JsonResponse
