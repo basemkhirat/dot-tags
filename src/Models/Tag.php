@@ -67,7 +67,7 @@ class Tag extends Model
         foreach ($names as $name) {
             $tag = self::select("id")->where("name", $name)->first();
 
-            if (count($tag)) {
+            if ($tag) {
 
                 // Tag exists
 
