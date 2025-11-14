@@ -3,7 +3,7 @@
 namespace Dot\Tags;
 
 use Illuminate\Support\Facades\Auth;
-use Navigation;
+use Dot\Platform\Facades\Navigation;
 
 class Tags extends \Dot\Platform\Plugin
 {
