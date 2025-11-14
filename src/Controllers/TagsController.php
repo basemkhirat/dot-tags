@@ -3,7 +3,6 @@
 namespace Dot\Tags\Controllers;
 
 use Action;
-use Auth;
 use Dot\Platform\Controller;
 use Dot\Tags\Models\Tag;
 use Redirect;

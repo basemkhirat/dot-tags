@@ -4,7 +4,6 @@ namespace Dot\Tags;
 
 use Illuminate\Support\Facades\Auth;
 use Navigation;
-use URL;
 
 class Tags extends \Dot\Platform\Plugin
 {
