@@ -16,20 +16,3 @@ Route::group([
         $route->any('/search', ["as" => "admin.tags.search", "uses" => "TagsController@search"]);
     });
 });
-
-
-/*
- * API
- */
-Route::group([
-    "prefix" => API,
-    "middleware" => ["auth:api"],
-    "namespace" => "Dot\\Tags\\Controllers"
-], function ($route) {
-    $route->get("/tags/show", "TagsApiController@show");
-    $route->post("/tags/create", "TagsApiController@create");
-    $route->post("/tags/update", "TagsApiController@update");
-    $route->post("/tags/destroy", "TagsApiController@destroy");
-});
-
-

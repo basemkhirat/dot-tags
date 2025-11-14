@@ -1,5 +1,6 @@
 {
     "name": "dot/tags",
+    "version": "0.2.5",
     "description": "The tags plugin of dot/platform",
     "keywords": [
         "framework",
